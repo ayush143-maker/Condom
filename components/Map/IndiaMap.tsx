@@ -29,20 +29,20 @@ function createGelSprite(size = 128): ImageData {
 
   // 1. Soft outer lavender/pink bloom (large, low opacity, fades to nothing)
   const bloom = ctx.createRadialGradient(cx, cy, r * 0.15, cx, cy, r);
-  bloom.addColorStop(0, "rgba(255,139,239,0.55)"); // FF8BEF
-  bloom.addColorStop(0.55, "rgba(255,94,219,0.28)"); // FF5EDB
-  bloom.addColorStop(1, "rgba(255,46,190,0)"); // FF2EBE -> transparent
+  bloom.addColorStop(0, "rgba(255,122,92,0.55)"); // FF7A5C
+  bloom.addColorStop(0.55, "rgba(255,68,51,0.28)"); // FF4433
+  bloom.addColorStop(1, "rgba(232,38,26,0)"); // E8261A -> transparent
   ctx.fillStyle = bloom;
   ctx.fillRect(0, 0, size, size);
 
   // 2. Saturated gel body
   const body = ctx.createRadialGradient(cx, cy, 0, cx, cy, r * 0.72);
-  body.addColorStop(0, "rgba(255,247,255,0.95)"); // FFF7FF
-  body.addColorStop(0.28, "rgba(255,208,247,0.95)"); // FFD0F7
-  body.addColorStop(0.5, "rgba(255,139,239,0.92)"); // FF8BEF
-  body.addColorStop(0.72, "rgba(255,94,219,0.9)"); // FF5EDB
-  body.addColorStop(0.88, "rgba(255,67,209,0.88)"); // FF43D1
-  body.addColorStop(1, "rgba(255,46,190,0)"); // FF2EBE -> soft edge
+  body.addColorStop(0, "rgba(255,245,240,0.95)"); // FFF5F0
+  body.addColorStop(0.28, "rgba(255,201,187,0.95)"); // FFC9BB
+  body.addColorStop(0.5, "rgba(255,122,92,0.92)"); // FF7A5C
+  body.addColorStop(0.72, "rgba(255,68,51,0.9)"); // FF4433
+  body.addColorStop(0.88, "rgba(232,38,26,0.88)"); // E8261A
+  body.addColorStop(1, "rgba(196,20,10,0)"); // C4140A -> soft edge
   ctx.fillStyle = body;
   ctx.beginPath();
   ctx.arc(cx, cy, r * 0.72, 0, Math.PI * 2);
@@ -155,7 +155,7 @@ export default function IndiaMap({
           "line-color": [
             "case",
             ["boolean", ["feature-state", "selected"], false],
-            "#ff2fb0",
+            "#FF4433",
             ["boolean", ["feature-state", "hover"], false],
             "#a855f7",
             "#4a4a5c",
@@ -215,11 +215,11 @@ export default function IndiaMap({
             ["linear"],
             ["get", "glow"],
             0,
-            "#FFD0F7",
+            "#FFC9BB",
             0.5,
-            "#FF8BEF",
+            "#FF7A5C",
             1,
-            "#FF43D1",
+            "#E8261A",
           ],
           "circle-blur": 1.15,
           "circle-opacity": ["interpolate", ["linear"], ["get", "glow"], 0, 0.22, 1, 0.5],
@@ -373,4 +373,5 @@ function setFeatureStateByName(
 function hashId(name: string): string {
   return name;
         }
-                     
+
+  
