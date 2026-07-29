@@ -24,7 +24,7 @@ const IndiaMap = dynamic(() => import("@/components/Map/IndiaMap"), {
   ),
 });
 
-const DEFAULT_INDICATOR = "pill";
+const DEFAULT_INDICATOR = "condom";
 
 export default function Home() {
   const { states, meta, indicators, loading, error } = useAtlasCore();
