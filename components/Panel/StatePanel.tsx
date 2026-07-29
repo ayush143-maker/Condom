@@ -38,11 +38,14 @@ export default function StatePanel({
         ]
       : [];
 
-  const compareData = [
-    { name: "Rural", value: rural ?? 0 },
-    { name: "Urban", value: urban ?? 0 },
-    { name: "National", value: meta.national_average },
-  ];
+  const compareData =
+    urban != null || rural != null
+      ? [
+          { name: "Rural", value: rural ?? 0 },
+          { name: "Urban", value: urban ?? 0 },
+          { name: "National", value: meta.national_average },
+        ]
+      : [];
 
   return (
     <div className="flex h-full flex-col overflow-y-auto">
@@ -95,31 +98,33 @@ export default function StatePanel({
           </div>
         </div>
 
-        <div>
-          <div className="mb-2 text-[11px] uppercase tracking-wide text-text-muted">
-            Urban vs Rural vs National
+        {compareData.length > 0 && (
+          <div>
+            <div className="mb-2 text-[11px] uppercase tracking-wide text-text-muted">
+              Urban vs Rural vs National
+            </div>
+            <div className="h-32">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={compareData} layout="vertical" margin={{ left: 0, right: 12 }}>
+                  <XAxis type="number" hide domain={[0, "dataMax + 5"]} />
+                  <YAxis
+                    type="category"
+                    dataKey="name"
+                    width={64}
+                    tick={{ fill: "#9C9CB5", fontSize: 11 }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={16}>
+                    {compareData.map((d, i) => (
+                      <Cell key={d.name} fill={i === 2 ? "#6B6B85" : "#ff2fb0"} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-          <div className="h-32">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={compareData} layout="vertical" margin={{ left: 0, right: 12 }}>
-                <XAxis type="number" hide domain={[0, "dataMax + 5"]} />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  width={64}
-                  tick={{ fill: "#9C9CB5", fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                />
-                <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={16}>
-                  {compareData.map((d, i) => (
-                    <Cell key={d.name} fill={i === 2 ? "#6B6B85" : "#ff2fb0"} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+        )}
 
         {trendData.length > 0 && (
           <div>
@@ -152,4 +157,5 @@ export default function StatePanel({
       </div>
     </div>
   );
-}
+                                     }
+          
